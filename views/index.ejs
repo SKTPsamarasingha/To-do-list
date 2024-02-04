@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>Terminal List </h1>
+    </div>
+    <form action="/add" method="post" class="input-container">
+        <%if(locals.editTask) { %>
+
+            <input type="text" value="<%= editTask %>" name="userInput" <%} else{ %>
+            <input type="text" name="userInput" <% } %>autofocus="true" autocomplete="off"
+            placeholder="Go the bank">
+            <button class="add-btn" type="submit">
+                Add
+            </button>
+    </form>
+
+    <br>
+    <%if(locals.input) { %>
+        <% input.forEach(item=> { %>
+
+            <div class="items">
+                <p>
+                    <%= item.task %>
+                </p>
+                <!-- <div class="btn-container"> -->
+                <form action="/delete" method="post" class="btn-container">
+                    <input type="hidden" name="itemValue" value="<%= item.id %>">
+
+                    <!-- delete btn -->
+                    <button class="delete-btn" type="submit">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </form>
+                <form action="/edit" method="post" class="btn-container">
+                    <input type="hidden" name="itemId" value="<%= item.id %>">
+                    <input type="hidden" name="itemTask" value="<%= item.task %>">
+
+                    <!-- edit btn -->
+                    <button class="edit-btn" type="submit">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                </form>
+            </div>
+            <% }) %>
+                <% } %>
+                    <% if(locals.error) { %>
+                        <h2>
+                            <%= error %>
+                        </h2>
+
+                        <% } %>
+
+
+
+</body>
+
+</html>

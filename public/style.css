@@ -1,0 +1,119 @@
+body {
+  background-color: #071952;
+}
+.header {
+  color: #b3005e;
+  background-color: #071952;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 15px;
+  font-style: italic;
+  box-shadow: 1px 3px 20px #97feed;
+
+  height: 100px;
+  max-width: 400px;
+  margin: 50px auto;
+  border-radius: 10px;
+  border: 1px solid greenyellow;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.input-container {
+  width: 100px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input {
+  color: #d63484;
+  background-color: #030637;
+  border: none;
+  height: 30px;
+  width: 400px;
+  border-radius: 5px;
+  outline: none;
+  caret-color: green;
+  padding: none;
+
+  cursor: pointer;
+}
+
+input:hover {
+  border: 1px solid #6c22a6;
+}
+
+.add-btn {
+  color: #b3005e;
+  background-color: #030637;
+  border: none;
+
+  height: 30px;
+  width: 100px;
+  border-radius: 5px;
+  margin-left: 10px;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.add-btn:hover {
+  border: 1px solid #b3005e;
+}
+
+.items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  right: 50px;
+}
+
+p {
+  color: #97feed;
+}
+
+.btn-container {
+  margin-left: 70px;
+}
+
+.edit-btn {
+  background: transparent;
+  border-color: transparent;
+  color: green;
+  cursor: pointer;
+  font-size: 15px;
+
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 550px;
+}
+.delete-btn {
+  background: transparent;
+  border-color: transparent;
+  color: #b3005e;
+  cursor: pointer;
+  font-size: 15px;
+
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 500px;
+}
+
+h2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: rgb(183, 7, 7);
+}
+@media (max-width: 768px) {
+  .edit-btn {
+    right: 40px;
+  }
+
+  .delete-btn {
+    right: 5px;
+  }
+}
