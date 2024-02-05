@@ -17,12 +17,13 @@
     <form action="/add" method="post" class="input-container">
         <%if(locals.editTask) { %>
 
-            <input type="text" value="<%= editTask %>" name="userInput" <%} else{ %>
-            <input type="text" name="userInput" <% } %>autofocus="true" autocomplete="off"
-            placeholder="Go the bank">
-            <button class="add-btn" type="submit">
-                Add
-            </button>
+            <input type="text" value="<%= editTask %>" name="userInput">
+            <%} else{ %>
+                <input type="text" name="userInput" autofocus="true" autocomplete="off" placeholder="Go the bank">
+                <% } %>
+                    <button class="add-btn" type="submit">
+                        Add
+                    </button>
     </form>
 
     <br>

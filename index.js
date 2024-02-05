@@ -27,34 +27,13 @@ app.get("/signUp", (req, res) => {
 app.post("/signUp", async (req, res) => {
   const email = req.body.email.trim();
   const password = req.body.password.trim();
-  const valEmail = emailValidate(email);
-  const valPassword = passwordValidate(password);
-  let err = "";
-  let verified = false;
-  try {
-    const salt = await bcrypt.genSalt(10);
-    const foundUser = await db.getUser(email);
 
-    if (foundUser === null) {
-      if (!valEmail) {
-        err = "Invalid email please";
-      } else {
-        if (!valPassword) {
-          err = "Invalid password";
-        } else {
-          verified = true;
-        }
-      }
+  try {
+    const verified = await signUp(email, password);
+    if (verified === true) {
+      res.redirect("/home");
     } else {
-      err = "User Found please try login";
-    }
-    ////////////////////////////////
-    if (verified) {
-      const hash = await bcrypt.hash(password, salt);
-      await db.addUser(email, hash);
-      res.redirect("/");
-    } else {
-      res.render("sign.ejs", { error: err });
+      res.render("sign.ejs", { error: verified });
     }
   } catch (error) {
     console.log(error);
@@ -95,7 +74,6 @@ app.get("/home", async (req, res) => {
 //add task
 app.post("/add", async (req, res) => {
   let input = req.body.userInput;
-
   try {
     if (input === "") {
       const err = "Empty task, Please enter a task";
@@ -133,6 +111,7 @@ app.post("/edit", async (req, res) => {
 });
 //
 //
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
@@ -158,7 +137,7 @@ const passwordValidate = (password) => {
   }
 };
 
-const loginVerified = async (email, userPass) => {
+async function loginVerified(email, userPass) {
   let data = { verified: false, id: userID };
 
   try {
@@ -187,4 +166,34 @@ const loginVerified = async (email, userPass) => {
   } catch (error) {
     console.log(error);
   }
-};
+}
+
+async function signUp(email, password) {
+  const valEmail = emailValidate(email);
+  const valPassword = passwordValidate(password);
+  let verified = false;
+
+  try {
+    const salt = await bcrypt.genSalt(10);
+    const foundUser = await db.getUser(email);
+
+    if (foundUser === null) {
+      if (!valEmail) {
+        return "Invalid email please";
+      } else {
+        if (!valPassword) {
+          return "Invalid password";
+        } else {
+          const hash = await bcrypt.hash(password, salt);
+          const result = await db.addUser(email, hash);
+          userID = result.rows[0].id;
+          return (verified = true);
+        }
+      }
+    } else {
+      return "User Found please try login";
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}

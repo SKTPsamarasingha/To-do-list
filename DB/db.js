@@ -12,7 +12,7 @@ db.connect();
 const addUser = async (email, password) => {
   try {
     const result = db.query(
-      "INSERT INTO users(email,password) VALUES($1,$2) RETURNING id",
+      "INSERT INTO users(email,password) VALUES($1,$2) RETURNING *",
       [email, password]
     );
     return result;
